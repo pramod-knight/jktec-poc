@@ -1,0 +1,4 @@
+#create .env file and copy all variables into .env file
+
+INGESTION_SERVICE_PORT = 
+INGESTION_SERVICE_HOST = 
