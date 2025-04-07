@@ -72,6 +72,7 @@ export class AuthController {
   @ApiResponse({status:403,description:'Resource access denied'})
   @Post('/login')
   @HttpCode(HttpStatus.OK)
+  @UseGuards(ThrottlerGuard)
   async authLogin(@Body() payload: LoginDto) {
     const response = await this.authService.login(payload);
     return {
