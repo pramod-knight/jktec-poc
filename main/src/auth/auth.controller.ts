@@ -14,6 +14,10 @@ import { AuthService } from './auth.service';
 import { SignupDto, LoginDto } from './dto/create-auth.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { RoleCheckGuard } from './role.guard';
+import { RoleEnum } from '../enum/role.enum';
+import { Roles } from './role.decorator';
 
 @ApiTags("auth-endpoints")
 @Controller('auth')
@@ -39,6 +43,8 @@ export class AuthController {
   @Post('/register')
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(ThrottlerGuard)
+  @UseGuards(JwtAuthGuard,RoleCheckGuard)
+  @Roles([RoleEnum.ADMIN])
   async authSignup(@Body() payload: SignupDto) {
     const response = await this.authService.registerNewUser(payload);
     return {
