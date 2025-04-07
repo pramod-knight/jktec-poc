@@ -10,6 +10,7 @@ import { PasswordService } from '../users/password.service';
 import { JwtStrategy } from './strategy/auth.jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { RoleEnum } from '../enum/role.enum';
+import { ClsModule, ClsService } from 'nestjs-cls';
 
 export const mockUser: User = {
   id: 'uuid',
@@ -31,7 +32,7 @@ describe('AuthService', () => {
 
   let userService: UsersService;
   let jwtService: JwtNestService;
-
+  let clsService: ClsService;
   // Mock JwtService
   const mockJwtService = {
     sign: jest.fn(),
@@ -43,6 +44,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+       imports: [ClsModule],
       providers: [
         AuthService,
         JwtNestService,

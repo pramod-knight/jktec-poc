@@ -5,6 +5,7 @@ import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { Reflector } from '@nestjs/core';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { StreamableFile } from '@nestjs/common';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 describe('DocumentsController', () => {
   let controller: DocumentsController;
@@ -13,6 +14,16 @@ describe('DocumentsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports:[
+        ThrottlerModule.forRoot({
+          throttlers: [
+            {
+              ttl: 60000, //take second (e.g., 60 seconds = 1 minute) 
+              limit: 5, // max number of limits per ttl
+            },
+          ],
+        }),
+      ],
       controllers: [DocumentsController],
       providers: [
         Reflector,

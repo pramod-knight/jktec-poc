@@ -3,6 +3,7 @@ import { Reflector } from "@nestjs/core";
 import { Test, TestingModule } from "@nestjs/testing";
 import { IngestionController } from "./ingestion.controller";
 import { IngestionService } from "./ingestion.service";
+import { ThrottlerModule } from "@nestjs/throttler";
 
 describe("IngestionController", () => {
   let controller: IngestionController;
@@ -11,6 +12,16 @@ describe("IngestionController", () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports:[
+        ThrottlerModule.forRoot({
+          throttlers: [
+            {
+              ttl: 60000, //take second (e.g., 60 seconds = 1 minute) 
+              limit: 5, // max number of limits per ttl
+            },
+          ],
+        }),
+      ],
       controllers: [IngestionController],
       providers: [
         Reflector,

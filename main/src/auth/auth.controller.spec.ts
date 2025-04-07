@@ -13,6 +13,8 @@ import { createMock } from '@golevelup/ts-jest';
 import { JwtStrategy } from './strategy/auth.jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { RoleEnum } from '../enum/role.enum';
+import { ClsModule } from 'nestjs-cls';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -24,6 +26,15 @@ describe('AuthController', () => {
   };
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ClsModule,
+        ThrottlerModule.forRoot({
+          throttlers: [
+            {
+              ttl: 60000, //take second (e.g., 60 seconds = 1 minute) 
+              limit: 5, // max number of limits per ttl
+            },
+          ],
+        }),],
       controllers: [AuthController],
       providers: [
         AuthService,

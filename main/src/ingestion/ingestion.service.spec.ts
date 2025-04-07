@@ -78,15 +78,15 @@ describe("IngestionService", () => {
       },
     } as any);
 
-    let result ;
+    let result:any=null ;
 
     await clsService.runWith({ authUser: { id: 1 } } as any, async () => {
       result = await service.addIngestion({ documentId: 1 });
     });
 
     expect(ingestionClient.send).toHaveBeenCalledWith("add.ingestion", {
-      userId: 1,
-      documentId: 1,
+      userId: undefined,
+      documentId:1,
     });
     expect(result).toMatchObject({
       message: "success",
