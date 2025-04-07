@@ -88,3 +88,33 @@ $ pnpm run start:prod
 
   - Details of ingestion
   - Read any document
+
+## User Authentication
+
+The codes for authentication can be found inside of main folder under the auth module. Passport's JWT auth is used for this purpose. An Auth guard is places on all those controller api's which requires user to be authenticated.
+
+Please see these locations,
+
+- `main/src/auth/jwt-auth.guard.ts`
+
+- `main/src/auth/strategy/auth.jwt.strategy.ts` 
+
+## User Authorization
+
+RolesGuard is a robust rule engine module which is default for bulding RBAC mechanism, please find more about this at https://docs.nestjs.com/guards#role-based-authentication
+
+The above module is used along with a decorator which is used to tag the controller apis with the appropriate RBAC for invoking.
+
+`/main/src/auth/role.decorator.ts`
+
+The guard is then used to identify the invoker's list of permission and whether the invoker can successfully execute the target api.
+
+`main/src/auth/role.guard.ts`
+
+
+## mocked Ingestion Service
+
+The ingestion service is another Nestjs microservice that run along with main. It has apis to add and get details of the ingestion as `@MessagePattern` with linked to their command.
+
+NOTE: 
+Once a new ingestion is added,  to update it's status an event is fired. That event is then asynchronously handled to update it's status to success / failed.
