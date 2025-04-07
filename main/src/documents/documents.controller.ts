@@ -48,7 +48,7 @@ export class DocumentsController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard,RoleCheckGuard)
   @UseGuards(ThrottlerGuard)
-  @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR])
+  @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR,RoleEnum.VISITOR])
   async getDocumentById(@Param('id') id:string){
     const file = await this.documentsService.retrieveDocumentById(id);
 
