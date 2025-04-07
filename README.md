@@ -65,3 +65,26 @@ $ pnpm run start:prod
 
 ## 3 Open browser at http://localhost:PORT/api/ (Swagger documentation available to test API end point)
 
+
+## Types of Users
+1. Admin
+  
+  This user can any operations in the application such as
+
+  - Registering new user
+  - CRUD of Document
+  - Create and get details of an Ingestion
+
+2. Editor
+
+  This type of user can perform any operation on the document
+
+  - CRUD of Document
+  - Create and Details of ingestion
+
+3. Viewer
+
+  This type of user can perform any operation on the document
+
+  - Details of ingestion
+  - Read any document
