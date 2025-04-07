@@ -7,6 +7,7 @@ import {
   SwaggerDocumentOptions,
   SwaggerModule,
 } from '@nestjs/swagger';
+import helmet from 'helmet';
 
 async function bootstrap() {
   /**App initialization and logger */
@@ -14,6 +15,17 @@ async function bootstrap() {
     logger: new ConsoleLogger({
       prefix: 'JK-POC',
     }),
+  });
+
+  //Helmet can help protect our app from some well-known web vulnerabilities
+  app.use(helmet());
+
+  //Enabled cors for the application
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+    ],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT']
   });
 
   /** Initialization of config service */
