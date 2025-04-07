@@ -31,8 +31,17 @@ export class UsersService {
     return this.usersRepository.save(newUser);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  findAll(sortBy: 'createdAt' | 'updatedAt' = 'createdAt',
+    sortOrder: 'ASC' | 'DESC' = 'DESC',
+    limit: number = 10,
+    offset: number = 0,) {
+    // need to add pagination and filtering logic here
+    return this.usersRepository.findAndCount({where:{},
+      select:['id', 'firstName','middleName', 'lastName', 'email', 'role', 'isActive', 'createdAt', 'updatedAt'],
+      take:limit,
+      skip:offset,
+      order: { [sortBy]: sortOrder }  
+    })
   }
 
   private findOneByEmail(email: string): Promise<User | null> {

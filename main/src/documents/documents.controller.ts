@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, StreamableFile, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, StreamableFile, Put, HttpStatus } from '@nestjs/common';
 import { DocumentsService } from './documents.service';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from "@nestjs/platform-express";
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RoleCheckGuard } from '../auth/role.guard';
@@ -70,6 +70,18 @@ export class DocumentsController {
       },
     },
   })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "document updated",
+  })
+  @ApiResponse({
+    status: 500,
+    description: "Internal Server Error",
+  })
+  @ApiResponse({status:401,description:'Aunthorized to access'})
+  @ApiResponse({status:400,description:'Validation failed'})
+  @ApiResponse({status:403,description:'Resource access denied'})
+  @ApiResponse({status:429,description:'To many requests'})
   @UseGuards(JwtAuthGuard,RoleCheckGuard)
   @UseGuards(ThrottlerGuard)
   @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR])
@@ -88,6 +100,18 @@ export class DocumentsController {
 
   @Delete(":id")
   @ApiBearerAuth()
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "document deleted",
+  })
+  @ApiResponse({
+    status: 500,
+    description: "Internal Server Error",
+  })
+  @ApiResponse({status:401,description:'Aunthorized to access'})
+  @ApiResponse({status:400,description:'Validation failed'})
+  @ApiResponse({status:403,description:'Resource access denied'})
+  @ApiResponse({status:429,description:'To many requests'})
   @UseGuards(JwtAuthGuard,RoleCheckGuard)
   @UseGuards(ThrottlerGuard)
   @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR])
