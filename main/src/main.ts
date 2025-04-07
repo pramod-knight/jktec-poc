@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ConsoleLogger, INestApplication, Logger } from '@nestjs/common';
+import { BadRequestException, ConsoleLogger, INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   DocumentBuilder,
@@ -18,6 +18,28 @@ async function bootstrap() {
 
   /** Initialization of config service */
   const configService = app.get(ConfigService);
+
+  //Handle Dto Class-validation Error
+  app.useGlobalPipes(
+    new ValidationPipe({
+      always: true,
+      whitelist: true,
+      forbidNonWhitelisted: true, // Optional: If you want to throw an error when unknown properties are provided
+      transform: true,
+      //The exceptionFactory helps us to control the error message and here we manage message into object from string
+      // default the error message will be in array of string
+      exceptionFactory: (errors) => {
+        const errorMessages = {};
+        errors.forEach((error) => {
+          errorMessages[error.property] = error.constraints && Object.values(error.constraints)
+            .join('. ')
+            .trim();
+        });
+        return new BadRequestException(errorMessages);
+      },
+      
+    }),
+  );
 
   /**Swagger for APi setup */
   const config = new DocumentBuilder()

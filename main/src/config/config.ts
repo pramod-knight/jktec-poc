@@ -11,6 +11,6 @@ export const config = (): ConfigProps => ({
   JWT_EXPIRE_IN: process.env.JWT_EXPIRE || '1h',
   UPLOAD_PATH: process.env.UPLOAD_PATH || 'uploads',
   UPLOAD_MAX_SIZE:process.env.UPLOAD_MAX_FILE_SIZE ? parseInt(process.env.UPLOAD_MAX_FILE_SIZE) : 1048576,
-  userServiceHost: process.env.USER_SERVICE_HOST || 'http://localhost:3001',
-  userServicePort: process.env.USER_SERVICE_PORT ? parseInt(process.env.USER_SERVICE_PORT) : 3001,
+  userServiceHost: process.env.INGESTION_SERVICE_HOST || 'localhost',
+  userServicePort: process.env.INGESTION_SERVICE_PORT ? parseInt(process.env.INGESTION_SERVICE_PORT) : 3001,
 });
