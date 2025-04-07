@@ -6,14 +6,16 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RoleCheckGuard } from '../auth/role.guard';
 import { RoleEnum } from '../enum/role.enum';
 import { Roles } from '../auth/role.decorator';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @ApiTags("document")
 @Controller('documents')
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
 
- @UseGuards(JwtAuthGuard,RoleCheckGuard)
-  @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR,RoleEnum.VISITOR])
+  @UseGuards(JwtAuthGuard,RoleCheckGuard)
+  @UseGuards(ThrottlerGuard)
+  @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR])
   @Post()
   @ApiConsumes("multipart/form-data")
   @ApiBearerAuth()
@@ -45,6 +47,7 @@ export class DocumentsController {
   @Get(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard,RoleCheckGuard)
+  @UseGuards(ThrottlerGuard)
   @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR])
   async getDocumentById(@Param('id') id:string){
     const file = await this.documentsService.retrieveDocumentById(id);
@@ -68,7 +71,8 @@ export class DocumentsController {
     },
   })
   @UseGuards(JwtAuthGuard,RoleCheckGuard)
-  @Roles([RoleEnum.ADMIN])
+  @UseGuards(ThrottlerGuard)
+  @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR])
   @UseInterceptors(FileInterceptor("file"))
   async updateDocument(
     @Param("id") id: string,
@@ -85,7 +89,8 @@ export class DocumentsController {
   @Delete(":id")
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard,RoleCheckGuard)
-  @Roles([RoleEnum.ADMIN])
+  @UseGuards(ThrottlerGuard)
+  @Roles([RoleEnum.ADMIN,RoleEnum.EDITOR])
   async deleteDocument(@Param("id") id: string) {
     await this.documentsService.deleteDocument(id);
 
