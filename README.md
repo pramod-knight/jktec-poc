@@ -36,6 +36,10 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
+## 1.4 whe your main service is started
+
+![Main App Screenshot](https://media-hosting.imagekit.io/21f5c126ad054ee9/screenshot_1744007626592.png?Expires=1838615628&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=gcauu-YRnqVPVANNOZMROQN5WrMwOtft7-UVhl3xXQ-QnXmlFy0G9ZJTYqtbGfpFiQEVD3W6ZoE80H~So83e6AKhrFUZwZICJFkKjj5Ys0yljjERqVlVit5cL6cfcGnGzYf7Zwb5SXxCf--hRbGVx5Bt1F8QPex5LQzkeuYbYXA523N9pl5kg9sC0QrVbk0HeJT0Z1KnhHYBRhbnH~TyL7hrkewdhfWsKbW1p2TtEO0gc5Ln-xuJq~E2avRq5Uqn2-rBpawUeX98Xakpkc5jVHHR4Dt~-RnTG1ghwli9UInnnievGxOwFP8gtvnneKCt0MXIxyYgcaJ~nvL5Rr9JGQ__)
+
 ## 2 Go to ingestion-services folder
 
 ```bash
@@ -43,14 +47,14 @@ $ cd  ./ingestion-services
 
 ```
 
-## 1.1 Install dependency
+## 2.1 Install dependency
 ```bash
 $ pnpm install
 ```
 
-## 1.2 create .env file and use env-local file variables
+## 2.2 create .env file and use env-local file variables
 
-## 1.3 Compile and run the main service
+## 2.3 Compile and run the main service
 
 ```bash
 # development
@@ -63,7 +67,16 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
+## 2.4 whe your ingestion service is started
+
+![Ingestion App Screenshot](https://media-hosting.imagekit.io/fd6df8bb6aef4db8/screenshot_1744007888410.png?Expires=1838615890&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=MNQA2eG61s8LZFVbq4PA9mpC3WTENWM68vmNDf~sRmjgXn7-flyxTSyDzbTKVqhRc4~G~5oD41bbwqVAfqlSScfY1brE7XRvDyTjiXTifzQnKP~wUmWqILMqcFuGepCzTfEGBXdmnydh-S2Na-~5Ht-GRQ6LzIcHznw30~jc1cixc~hOwE7rDp7hUBWDUEJxlwLpKOz1mkvbNWHH29X3ye3OPFPLQtNxq3n8Z56MzGv97wLE1Nlq1Fk1cH1olevYSZ-BbqNgNqdjasVtywuYIIVGsnZ8-LdWVGELg0foZw0r6nRpEOj-cQHO~pDgIGqfECB8IfEz5DxRX4hCDEXESA__)
+
+
 ## 3 Open browser at http://localhost:PORT/api/ (Swagger documentation available to test API end point)
+
+## 3.1 Swagger UI
+![Swagger App Screenshot](
+https://media-hosting.imagekit.io/d773471464954cc9/screenshot_1744008052093.png?Expires=1838616053&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=aORLlAQQb8Bfa6m5gQ7yc8RBDAvHFgg7mB4DfNB3kphX~r8yQOxiIangev1Zljk2IOfYe2GO6CIcH5zhAoeLys6EkqkPo90mY8QvXXvQxjx2tcIyiRjzkJa9LotGyTOmIUY9VdxIqWbcLCSmWW4DLyphV6pLcupeltixT6HQhrB0k7hY13Si~bKm2T80~FGqIre6CSgc-jYj4L5rZscqJ1Wd7cwbc4Va1ZXLpAufEvlsEjlV0DvkdoEnNb1TrdePCcht9pVxUFKwjQRr5nRYcFMtDZPdJ1ZNhYN~RfktZoy0EBI0KIzXxYq9qAZjgn6oReE01vheAunFweVYzbqJFA__)
 
 
 ## Types of Users
