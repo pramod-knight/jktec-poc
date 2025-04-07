@@ -8,10 +8,12 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto, LoginDto } from './dto/create-auth.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @ApiTags("auth-endpoints")
 @Controller('auth')
@@ -36,6 +38,7 @@ export class AuthController {
   @ApiResponse({status:403,description:'Resource access denied'})
   @Post('/register')
   @HttpCode(HttpStatus.CREATED)
+  @UseGuards(ThrottlerGuard)
   async authSignup(@Body() payload: SignupDto) {
     const response = await this.authService.registerNewUser(payload);
     return {

@@ -5,6 +5,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/role.decorator';
 import { RoleEnum } from '../enum/role.enum';
 import { RoleCheckGuard } from '../auth/role.guard';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @ApiTags("user-endpoints")
 @Controller('users')
@@ -14,6 +15,7 @@ export class UsersController {
   @Get('/list')
   @UseGuards(JwtAuthGuard,RoleCheckGuard)
   @Roles([RoleEnum.ADMIN])
+  @UseGuards(ThrottlerGuard)
   @ApiBearerAuth()
   findAll() {
     return this.usersService.findAll();

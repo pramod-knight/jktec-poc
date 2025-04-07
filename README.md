@@ -5,7 +5,7 @@
 [JWT and passport] used for authentication
 [PostgreSQL] used for database
 [TCP] protocol for microservice
-[Docker] compose to run in a single container
+[Throttle] used for rate limiter
 
 ## Clone the repository 
 
@@ -21,7 +21,9 @@ $ cd  ./main
 $ pnpm install
 ```
 
-## 1.2 Compile and run the main service
+## 1.2 create .env file and use env-local file variables
+
+## 1.3 Compile and run the main service
 
 ```bash
 # development
@@ -34,17 +36,21 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
-## 2 Go to user-services folder
+## 2 Go to ingestion-services folder
 
 ```bash
 $ cd  ./ingestion-services
+
 ```
+
 ## 1.1 Install dependency
 ```bash
 $ pnpm install
 ```
 
-## 1.2 Compile and run the main service
+## 1.2 create .env file and use env-local file variables
+
+## 1.3 Compile and run the main service
 
 ```bash
 # development

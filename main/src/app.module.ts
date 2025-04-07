@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DocumentsModule } from './documents/documents.module';
 import { IngestionModule } from './ingestion/ingestion.module';
 import { ClsModule } from 'nestjs-cls';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -36,6 +37,14 @@ import { ClsModule } from 'nestjs-cls';
         synchronize: process.env.NODE_ENV === 'production' ? false : true,
       }),
       inject: [ConfigService],
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000, //take second (e.g., 60 seconds = 1 minute) 
+          limit: 5, // max number of limits per ttl
+        },
+      ],
     }),
     UsersModule,
     AuthModule,
